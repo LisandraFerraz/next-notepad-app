@@ -4,7 +4,7 @@ The project is mainly focused on the practice and understanding of DOM manipulat
 
 With the tools provided by the APP, the user is allowed to customize and manage their notes by styling the texts and keeping the notes saved locally.
 
-![APP Prototype](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Design](https://github.com/user-attachments/assets/d048734e-0ed9-440d-ab77-3924a1ff0233)
 
 In order to focus on the frontend development, the notes are kept on the browser local storage.
 
