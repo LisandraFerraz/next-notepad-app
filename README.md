@@ -4,7 +4,7 @@ The project is mainly focused on the practice and understanding of DOM manipulat
 
 With the tools provided by the APP, the user is allowed to customize and manage their notes by styling the texts and keeping the notes saved locally.
 
-![Design](https://github.com/user-attachments/assets/d048734e-0ed9-440d-ab77-3924a1ff0233)
+![Prototype](https://github.com/user-attachments/assets/38ce5545-459f-4332-8065-60da6d138108)
 
 In order to focus on the frontend development, the notes are kept on the browser local storage.
 
@@ -14,7 +14,7 @@ Fork, install and run the project locally with NPM.
 
 ```bash
     npm install
-    npm run start
+    npm run dev
 ```
 
 ## Live version
