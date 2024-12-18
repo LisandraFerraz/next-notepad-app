@@ -1,3 +1,4 @@
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "./globals.scss";
 
 export default function RootLayout({

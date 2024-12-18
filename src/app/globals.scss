@@ -1,4 +1,4 @@
-@use "./shared/variables.scss" as v;
+@use "@/shared/variables.scss" as v;
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 html,
@@ -13,4 +13,26 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+input,
+select,
+textarea,
+button {
+  outline: none;
+  border: none;
+  font-family: "Inter";
+}
+select option {
+  border-radius: 10px;
 }

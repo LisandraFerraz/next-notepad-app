@@ -1,0 +1,43 @@
+@use "@/shared/variables.scss" as v;
+
+.header_container {
+  background-color: v.$bg_transparency;
+  border-radius: 10px;
+  width: 100%;
+  padding: 10px 25px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color: v.$white;
+  margin-bottom: 25px;
+
+  .note_title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+
+    i {
+      font-size: 1.3rem;
+    }
+    h2 {
+      font-weight: 400;
+    }
+    span {
+      opacity: 80%;
+    }
+  }
+
+  .note_options {
+    button {
+      background-color: transparent;
+      color: v.$white;
+      font-size: 1.2rem;
+    }
+
+    button:nth-child(2) {
+      margin: 0 10px;
+    }
+  }
+}

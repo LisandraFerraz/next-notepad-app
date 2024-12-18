@@ -1,5 +1,25 @@
-@use "./shared/variables.scss" as v;
+@use "@/shared/variables.scss" as v;
 
-h1 {
-  color: v.$baby_blue;
+.notepad_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100%;
+  padding: 25px;
+  overflow: hidden;
+  gap: 15px;
+
+  .notepad_group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: v.$bg_container_black;
+    // overflow: hidden;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    padding: 15px;
+  }
 }
