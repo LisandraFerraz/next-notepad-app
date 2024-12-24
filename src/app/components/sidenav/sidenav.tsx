@@ -1,10 +1,18 @@
 import { useState } from "react";
 import styles from "./sidenav.module.scss";
-import notesDate, { INotes } from "@/app/utils/mocked-data/mocked-notes-data";
+import { INotes } from "@/app/utils/mocked-data/mocked-notes-data";
 import SidenavCard from "../sidenav-card/sidenav-card";
+import { Note } from "@/app/utils/classes/note-class";
 
-export default function Sidenav() {
-  const [notesData, setNotesData] = useState<INotes[]>(notesDate);
+interface ISidenavProps {
+  dataList: INotes[];
+  openNote: (id: string) => void;
+}
+
+export default function Sidenav({ dataList, openNote }: ISidenavProps) {
+  function handleOpenNote(id: string) {
+    openNote(id);
+  }
 
   return (
     <div className={styles.container}>
@@ -29,14 +37,17 @@ export default function Sidenav() {
       </div>
 
       <div className={styles.cards_group}>
-        {notesData.map((item, index) => {
+        {dataList.map((item: any, index: any) => {
           return (
             <SidenavCard
+              id={item.id}
+              openNote={(e) => handleOpenNote(e)}
               color={item.color}
-              content={item.content}
+              text={item.text}
               title={item.title}
               char_count={item.char_count}
               date_created={item.date_created}
+              note_color={item.note_color}
               key={index}
             />
           );

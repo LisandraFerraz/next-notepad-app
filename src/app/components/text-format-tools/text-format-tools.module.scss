@@ -1,0 +1,61 @@
+@use "@/shared/variables.scss" as v;
+
+.text_tools {
+  width: 350px;
+  height: 100%;
+  background-color: v.$bg_transparency;
+  border-radius: 10px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative;
+
+  .text_select_tools_row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  .text_btn_tools_row {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 15px;
+
+    > button {
+      font-size: 1.6rem;
+      color: rgb(v.$white, 0.7);
+      background-color: transparent;
+      transition: ease-in 0.2s;
+      cursor: pointer;
+
+      &:hover {
+        color: rgb(v.$white, 1);
+      }
+    }
+  }
+
+  .github_link {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    color: v.$white;
+    opacity: 80%;
+    font-size: 0.8rem;
+    transition: ease-in 0.2s;
+
+    a {
+      margin-left: 10px;
+      color: v.$white;
+      text-decoration: none;
+    }
+
+    &:hover {
+      opacity: 100%;
+    }
+  }
+}

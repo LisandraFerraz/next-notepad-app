@@ -2,19 +2,25 @@
 
 import { IEditorOptions } from "@/app/utils/mocked-data/text-editor-options";
 import styles from "./custom-select.module.scss";
+import { useState } from "react";
 
 interface CustomSelect {
   data: IEditorOptions[];
   label: string;
+  setValue?: (value: any) => void;
 }
 
-export default function CustomSelect({ data, label }: CustomSelect) {
+export default function CustomSelect({ data, label, setValue }: CustomSelect) {
+  function handleOnChange(e: any) {
+    if (setValue) setValue(e.currentTarget.value);
+  }
+
   function getSelecContent(type: number, option: string) {
     if (type == 1) {
       return getColor(option);
     }
     if (type == 2) {
-      return getFontSize(option);
+      return option;
     }
     if (type == 3) {
       return option;
@@ -34,26 +40,13 @@ export default function CustomSelect({ data, label }: CustomSelect) {
     }
   }
 
-  function getFontSize(option: string) {
-    switch (option) {
-      case "small":
-        return "12";
-
-      case "regular":
-        return "16";
-
-      case "large":
-        return "20";
-
-      default:
-        return "16";
-    }
-  }
-
   return (
     <>
       <label className={styles.custom_label}>{label}</label>
-      <select className={styles.custom_select}>
+      <select
+        className={styles.custom_select}
+        onChange={(e) => handleOnChange(e)}
+      >
         {data?.map((item: any, index: any) => {
           return (
             <option key={index} value={item.option}>

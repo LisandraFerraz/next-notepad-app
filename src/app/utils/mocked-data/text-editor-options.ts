@@ -12,9 +12,11 @@ export const ColorOptions: IEditorOptions[] = [
 ];
 
 export const FontSizeOptions: IEditorOptions[] = [
-  { option: "small", type: 2 },
-  { option: "regular", type: 2 },
-  { option: "large", type: 2 },
+  { option: "14", type: 2 },
+  { option: "16", type: 2 },
+  { option: "18", type: 2 },
+  { option: "20", type: 2 },
+  { option: "22", type: 2 },
 ];
 
 export const FontFamilyOptions: IEditorOptions[] = [
