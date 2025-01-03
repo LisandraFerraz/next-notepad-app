@@ -38,6 +38,28 @@
         top: 0;
       }
     }
+
+    .create_new_note {
+      margin-top: 25px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      border: dashed 1px rgb(v.$white, 0.8);
+      border-radius: 15px;
+      background: rgb(v.$white, 0.125);
+      color: v.$white;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      height: 45px;
+      transition: ease-in 0.2s;
+
+      &:hover {
+        background: rgb(v.$white, 0.2);
+        cursor: pointer;
+      }
+    }
   }
 
   .cards_group {

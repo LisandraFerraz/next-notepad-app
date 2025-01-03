@@ -7,9 +7,14 @@ import { Note } from "@/app/utils/classes/note-class";
 interface ISidenavProps {
   dataList: INotes[];
   openNote: (id: string) => void;
+  createNote: () => void;
 }
 
-export default function Sidenav({ dataList, openNote }: ISidenavProps) {
+export default function Sidenav({
+  dataList,
+  openNote,
+  createNote,
+}: ISidenavProps) {
   function handleOpenNote(id: string) {
     openNote(id);
   }
@@ -23,31 +28,23 @@ export default function Sidenav({ dataList, openNote }: ISidenavProps) {
             <i className="bi bi-search"></i>
           </button>
         </div>
-
-        {/* filtros */}
-        {/* <div className={styles.filtros}>
-          <div>
-            <i className="bi bi-funnel"></i>
-            <span>Mais recente</span>
-          </div>
-          <div>
-            <span />
-          </div>
-        </div> */}
+        <div onClick={createNote} className={styles.create_new_note}>
+          <span>Novo bloco</span>
+        </div>
       </div>
 
       <div className={styles.cards_group}>
         {dataList.map((item: any, index: any) => {
           return (
             <SidenavCard
-              id={item.id}
+              id={item?.id}
               openNote={(e) => handleOpenNote(e)}
-              color={item.color}
-              text={item.text}
-              title={item.title}
-              char_count={item.char_count}
-              date_created={item.date_created}
-              note_color={item.note_color}
+              color={item?.color}
+              text={item?.text}
+              title={item?.title}
+              char_count={item?.char_count}
+              date_created={item?.date_created}
+              note_color={item?.note_color}
               key={index}
             />
           );

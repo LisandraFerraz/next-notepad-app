@@ -15,8 +15,6 @@ type TextFormatToolsProps = {
 
 export function TextFormatTools({ editorRef, setColor }: TextFormatToolsProps) {
   function formatText(style: any, options?: any) {
-    console.log("sifhash", options);
-
     if (editorRef.current) {
       const selection = window.getSelection();
       const range = selection?.getRangeAt(0);
@@ -35,7 +33,6 @@ export function TextFormatTools({ editorRef, setColor }: TextFormatToolsProps) {
   }
 
   function changeNoteColor(color: any) {
-    console.log("color", color);
     setColor(color);
   }
 

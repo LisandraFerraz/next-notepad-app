@@ -1,6 +1,6 @@
 export function removeTags(str: string) {
   if (str === null || str === "") return false;
-  else str = str.toString();
+  else str = str?.toString();
 
-  return str.replace(/(<([^>]+)>)/gi, "");
+  return str?.replace(/(<([^>]+)>)/gi, "");
 }

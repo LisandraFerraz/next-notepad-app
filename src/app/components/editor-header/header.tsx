@@ -1,14 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./header.module.scss";
+import { Note } from "@/app/utils/classes/note-class";
 
 interface IHeader {
-  data?: any;
+  data: Note;
   handle_save: () => void;
   handle_change_title: (value: any) => void;
 }
 
-export default function Header({ handle_change_title, handle_save }: IHeader) {
-  const [noteTitle, setNoteTitle] = useState<string>("");
+export default function Header({
+  data,
+  handle_change_title,
+  handle_save,
+}: IHeader) {
+  const [noteTitle, setNoteTitle] = useState<string>(data?.title || "");
+
+  useEffect(() => {
+    setNoteTitle(data?.title || "");
+  }, [data]);
 
   function updateTitle(e: any) {
     const title = String(e.currentTarget.value) || "";

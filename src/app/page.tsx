@@ -3,7 +3,7 @@ import { v4 as uid } from "uuid";
 
 import styles from "./notepad.module.scss";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Note } from "@/app/utils/classes/note-class";
 import Sidenav from "./components/sidenav/sidenav";
 import Header from "./components/editor-header/header";
@@ -19,42 +19,108 @@ export default function Notepad() {
 
   const [noteColor, setNoteColor] = useState<string>("baby_blue");
 
+  const [activeNote, setActiveNote] = useState<Note>({});
+
   const [savedNotes, setSavedNotes] = useState<any>([]);
 
-  const [activeNote, setActiveNote] = useState();
+  useEffect(() => {
+    let savedNotedlocal = localStorage.getItem("@Notes") || "";
+
+    if (savedNotedlocal) {
+      const formatedData = JSON.parse(savedNotedlocal);
+      setSavedNotes(formatedData);
+    }
+  }, []);
+
+  useEffect(() => {
+    setNoteText(activeNote?.text || "");
+  }, [activeNote]);
 
   function saveNote() {
-    console.log("noteColor", noteColor);
-    let data: Note = {
-      id: uid(),
-      date_created: GetDate(new Date()),
-      text: noteText,
-      title: noteTitle,
-      char_count: Number(noteText.length),
-      note_color: noteColor,
-    };
+    if (activeNote && savedNotes) {
+      console.log("activeNote | ", activeNote);
 
-    if (noteText) {
-      const updatedNotes = [...savedNotes, data];
+      const updatedNotes = savedNotes.map((item: any) => {
+        if (item.id === activeNote.id) {
+          return {
+            ...item,
+            title: noteTitle !== item.title ? noteTitle : item.title,
+            text: noteText !== item.text ? noteText : item.text,
+            noteColor:
+              noteColor !== item.note_color ? noteColor : item.note_color,
+            date_created: GetDate(new Date()),
+          };
+        }
+        return item;
+      });
+
       setSavedNotes(updatedNotes);
-      localStorage.setItem("@Notes", JSON.stringify(savedNotes));
+      localStorage.setItem("@Notes", JSON.stringify(updatedNotes));
+      console.log(
+        "new note updated | ",
+        updatedNotes.find((n: any) => n.id === activeNote.id)
+      );
+    } else {
+      let data: Note = {
+        id: uid(),
+        date_created: GetDate(new Date()),
+        text: noteText,
+        title: noteTitle,
+        char_count: Number(noteText?.length),
+        note_color: noteColor,
+      };
+
+      if (noteText) {
+        const updatedNotes = [...savedNotes, data];
+        setSavedNotes(updatedNotes);
+        localStorage.setItem("@Notes", JSON.stringify(savedNotes));
+      }
     }
   }
 
   function openNote(id: string) {
-    const selectedNote = savedNotes.find((selected: any) => selected.id === id);
-    if (editorRef.current) {
-      editorRef.current.innerHTML = selectedNote.text;
-    }
+    let localData = localStorage.getItem("@Notes");
+    const formatedData = JSON.parse(localData || "");
 
-    console.log("selectedNote", selectedNote);
+    const selectedNote: Note = formatedData.find(
+      (selected: any) => selected.id === id
+    );
+
+    console.log(selectedNote);
+
+    setNoteText(activeNote?.text || "");
+    setNoteTitle(activeNote?.title || "");
+
+    setActiveNote(selectedNote);
+  }
+
+  function createNote() {
+    const data: Note = {
+      id: uid(),
+      date_created: GetDate(new Date()),
+      text: "",
+      title: "Sem título",
+      note_color: "baby_blue",
+    };
+
+    const updatedNotes = [...savedNotes, data];
+    setSavedNotes(updatedNotes);
+
+    localStorage.setItem("@Notes", JSON.stringify(updatedNotes));
+
+    openNote(data.id!);
   }
 
   return (
     <div className={styles.notepad_container}>
-      <Sidenav dataList={savedNotes} openNote={openNote} />
+      <Sidenav
+        createNote={createNote}
+        dataList={savedNotes}
+        openNote={openNote}
+      />
       <div className={styles.notepad_group}>
         <Header
+          data={activeNote}
           handle_change_title={(e) => setNoteTitle(e)}
           handle_save={saveNote}
         />
@@ -63,11 +129,13 @@ export default function Notepad() {
           <div className={`${styles.text_area} ${styles[noteColor]}`}>
             <div
               contentEditable
-              ref={editorRef}
               id="text_editor"
               className={styles.textarea}
               onBlur={(e) => setNoteText(e.currentTarget.innerHTML)}
-            />
+              suppressContentEditableWarning
+            >
+              {noteText}
+            </div>
           </div>
 
           <TextFormatTools
