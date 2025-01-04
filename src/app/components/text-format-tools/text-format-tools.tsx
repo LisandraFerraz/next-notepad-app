@@ -7,6 +7,7 @@ import {
 } from "@/app/utils/mocked-data/text-editor-options";
 import CustomSelect from "../custom-select/custom-select";
 import React from "react";
+import Link from "next/link";
 
 type TextFormatToolsProps = {
   editorRef: React.RefObject<HTMLDivElement | null>;
@@ -108,9 +109,13 @@ export function TextFormatTools({ editorRef, setColor }: TextFormatToolsProps) {
 
       <div className={styles.github_link}>
         <i className="bi bi-github"></i>{" "}
-        <a target="_blank" href="www.github.com/LisandraFerraz">
+        <Link
+          target="_blank"
+          passHref={true}
+          href="https://github.com/LisandraFerraz"
+        >
           github.com/LisandraFerraz
-        </a>
+        </Link>
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ export default function SidenavCard(data: INotes) {
   return (
     <div
       onClick={() => handleOpenNote(data.id)}
-      className={`${styles.card} ${styles[data.note_color || "baby_blue"]}`}
+      className={`${styles.card} ${styles[data.note_color]}`}
     >
       <div className={styles.card_top}>
         <span className={styles.card_top_icon}>
@@ -25,12 +25,13 @@ export default function SidenavCard(data: INotes) {
           <i className="bi bi-calendar4-week"></i> {data.date_created}
         </span>
         <span>
-          <i className="bi bi-pencil"></i> {data.text?.length}
+          <i className="bi bi-pencil"></i>{" "}
+          {(removeTags(data.text) || "").length}
         </span>
       </div>
 
       <div className={styles.content_text}>
-        <span>{removeTags(shortenText(data.text, 80))}</span>
+        <span>{shortenText(removeTags(data.text) || "", 28)}</span>
       </div>
     </div>
   );

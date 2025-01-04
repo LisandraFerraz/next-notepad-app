@@ -45,10 +45,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
-
-      border: dashed 1px rgb(v.$white, 0.8);
+      border: dotted 1px white;
       border-radius: 15px;
-      background: rgb(v.$white, 0.125);
+      background: rgb(rgb(v.$white, 0.2), 0.1);
       color: v.$white;
       font-size: 0.8rem;
       text-transform: uppercase;
@@ -56,8 +55,7 @@
       transition: ease-in 0.2s;
 
       &:hover {
-        background: rgb(v.$white, 0.2);
-        cursor: pointer;
+        background: rgb(rgb(v.$white, 0.2), 0.125);
       }
     }
   }

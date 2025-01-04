@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./header.module.scss";
 import { Note } from "@/app/utils/classes/note-class";
+import { removeTags } from "@/app/utils/functions/remove-tags";
 
 interface IHeader {
   data: Note;
@@ -39,13 +40,6 @@ export default function Header({
       </div>
 
       <div className={styles.note_options}>
-        <span>232/500</span>
-        <button>
-          <i className="bi bi-arrow-90deg-left"></i>
-        </button>
-        <button>
-          <i className="bi bi-arrow-90deg-right"></i>
-        </button>
         <button onClick={handle_save}>
           <i className="bi bi-floppy"></i>
         </button>

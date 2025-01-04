@@ -13,11 +13,11 @@ import { TextFormatTools } from "./components/text-format-tools/text-format-tool
 export default function Notepad() {
   const editorRef = useRef<HTMLDivElement>(null);
 
-  const [noteText, setNoteText] = useState<any>();
+  const [noteText, setNoteText] = useState<any>(editorRef);
 
   const [noteTitle, setNoteTitle] = useState<string>("Sem título");
 
-  const [noteColor, setNoteColor] = useState<string>("baby_blue");
+  const [noteColor, setNoteColor] = useState<string>("");
 
   const [activeNote, setActiveNote] = useState<Note>({});
 
@@ -32,11 +32,22 @@ export default function Notepad() {
     }
   }, []);
 
+  // useEffect(() => {
+  //   setNoteText(activeNote?.text || "");
+  // }, [activeNote]);
+
   useEffect(() => {
-    setNoteText(activeNote?.text || "");
+    if (editorRef.current && activeNote) {
+      editorRef.current.innerHTML = activeNote.text || "";
+    }
+  }, [activeNote]);
+
+  useEffect(() => {
+    setNoteTitle(activeNote?.title || "");
   }, [activeNote]);
 
   function saveNote() {
+    console.log(noteColor);
     if (activeNote && savedNotes) {
       console.log("activeNote | ", activeNote);
 
@@ -46,7 +57,7 @@ export default function Notepad() {
             ...item,
             title: noteTitle !== item.title ? noteTitle : item.title,
             text: noteText !== item.text ? noteText : item.text,
-            noteColor:
+            note_color:
               noteColor !== item.note_color ? noteColor : item.note_color,
             date_created: GetDate(new Date()),
           };
@@ -86,12 +97,11 @@ export default function Notepad() {
       (selected: any) => selected.id === id
     );
 
-    console.log(selectedNote);
+    setActiveNote(selectedNote);
 
     setNoteText(activeNote?.text || "");
     setNoteTitle(activeNote?.title || "");
-
-    setActiveNote(selectedNote);
+    setNoteColor(activeNote?.note_color || "");
   }
 
   function createNote() {
@@ -130,12 +140,10 @@ export default function Notepad() {
             <div
               contentEditable
               id="text_editor"
+              ref={editorRef}
               className={styles.textarea}
               onBlur={(e) => setNoteText(e.currentTarget.innerHTML)}
-              suppressContentEditableWarning
-            >
-              {noteText}
-            </div>
+            />
           </div>
 
           <TextFormatTools
