@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./sidenav.module.scss";
 import { INotes } from "@/app/utils/mocked-data/mocked-notes-data";
 import SidenavCard from "../sidenav-card/sidenav-card";
@@ -19,11 +19,29 @@ export default function Sidenav({
     openNote(id);
   }
 
+  const [noteList, setNoteList] = useState<Note[]>([]);
+
+  useEffect(() => {
+    setNoteList(dataList);
+  }, [dataList]);
+
+  function handleSearch(keyword: string) {
+    const searchResult = dataList.filter((k) =>
+      k.title.toLowerCase().includes(keyword.toLowerCase())
+    );
+
+    searchResult ? setNoteList(searchResult) : setNoteList(dataList);
+  }
+
   return (
     <div className={styles.container}>
       <div>
         <div className={styles.search_bar}>
-          <input type="text" placeholder="Pesquisar..." />
+          <input
+            onChange={(e) => handleSearch(e.currentTarget.value)}
+            type="text"
+            placeholder="Pesquisar..."
+          />
           <button>
             <i className="bi bi-search"></i>
           </button>
@@ -34,7 +52,7 @@ export default function Sidenav({
       </div>
 
       <div className={styles.cards_group}>
-        {dataList.map((item: any, index: any) => {
+        {noteList.map((item: any, index: any) => {
           return (
             <SidenavCard
               id={item?.id}
