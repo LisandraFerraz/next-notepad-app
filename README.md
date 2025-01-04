@@ -4,7 +4,7 @@ The project is mainly focused on the practice and understanding of DOM manipulat
 
 With the tools provided by the APP, the user is allowed to customize and manage their notes by styling the texts and keeping the notes saved locally.
 
-![Prototype](https://github.com/user-attachments/assets/38ce5545-459f-4332-8065-60da6d138108)
+![Prototype](https://github.com/user-attachments/assets/45a57877-6794-4c38-b5e7-56fe17e74ae4)
 
 In order to focus on the frontend development, the notes are kept on the browser local storage.
 
@@ -19,4 +19,4 @@ Fork, install and run the project locally with NPM.
 
 ## Live version
 
-You can check out the project and test it yourself by accessing it [here](vercel.link).
+You can check out the project and test it yourself by accessing it [here](https://next-notepad-app.vercel.app/).
