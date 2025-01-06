@@ -17,24 +17,23 @@ export default function Notepad() {
 
   const [noteTitle, setNoteTitle] = useState<string>("Sem título");
 
-  const [noteColor, setNoteColor] = useState<string>("");
+  const [noteColor, setNoteColor] = useState<string>("baby_blue");
 
   const [activeNote, setActiveNote] = useState<Note>({});
 
   const [savedNotes, setSavedNotes] = useState<any>([]);
 
   useEffect(() => {
+    // openNote(savedNotes[0].id);
+
     let savedNotedlocal = localStorage.getItem("@Notes") || "";
 
     if (savedNotedlocal) {
       const formatedData = JSON.parse(savedNotedlocal);
       setSavedNotes(formatedData);
+      openNote(formatedData[0].id);
     }
   }, []);
-
-  // useEffect(() => {
-  //   setNoteText(activeNote?.text || "");
-  // }, [activeNote]);
 
   useEffect(() => {
     if (editorRef.current && activeNote) {
@@ -47,10 +46,7 @@ export default function Notepad() {
   }, [activeNote]);
 
   function saveNote() {
-    console.log(noteColor);
-    if (activeNote && savedNotes) {
-      console.log("activeNote | ", activeNote);
-
+    if (activeNote.id) {
       const updatedNotes = savedNotes.map((item: any) => {
         if (item.id === activeNote.id) {
           return {
@@ -67,10 +63,6 @@ export default function Notepad() {
 
       setSavedNotes(updatedNotes);
       localStorage.setItem("@Notes", JSON.stringify(updatedNotes));
-      console.log(
-        "new note updated | ",
-        updatedNotes.find((n: any) => n.id === activeNote.id)
-      );
     } else {
       let data: Note = {
         id: uid(),
@@ -101,7 +93,7 @@ export default function Notepad() {
 
     setNoteText(activeNote?.text || "");
     setNoteTitle(activeNote?.title || "");
-    setNoteColor(activeNote?.note_color || "");
+    setNoteColor(activeNote?.note_color || "baby_blue");
   }
 
   function createNote() {
@@ -121,6 +113,20 @@ export default function Notepad() {
     openNote(data.id!);
   }
 
+  function deleteNote(id: string) {
+    let newNotes = savedNotes;
+    for (let i = 0; i <= newNotes.length; i++) {
+      if (newNotes[i].id === id) {
+        newNotes.splice(i, 1);
+      }
+    }
+
+    setSavedNotes(newNotes);
+    localStorage.setItem("@Notes", JSON.stringify(newNotes));
+
+    setActiveNote(savedNotes[0] || {});
+  }
+
   return (
     <div className={styles.notepad_container}>
       <Sidenav
@@ -132,6 +138,7 @@ export default function Notepad() {
         <Header
           data={activeNote}
           handle_change_title={(e) => setNoteTitle(e)}
+          handle_delete={(e) => deleteNote(e)}
           handle_save={saveNote}
         />
 
